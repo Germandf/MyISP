@@ -5,10 +5,20 @@ namespace MyISP.Maui
 {
     public static class ApiEndpoints
     {
-        static string DevHost =>
-            DeviceInfo.Platform == DevicePlatform.Android
-                ? "http://10.0.2.2"
-                : "http://localhost";
+        static string DevHost
+        {
+            get
+            {
+                if (DeviceInfo.Platform == DevicePlatform.Android)
+                {
+                    if (DeviceInfo.DeviceType == DeviceType.Virtual)
+                        return "http://10.0.2.2";
+
+                    return $"http://192.168.16.219";
+                }
+                return "http://localhost";
+            }
+        }
         static string DevUrl(int port) => $"{DevHost}:{port}";
         public static string IdentityBaseUrl => DevUrl(5253);
         public static string BffBaseUrl => DevUrl(5088);
