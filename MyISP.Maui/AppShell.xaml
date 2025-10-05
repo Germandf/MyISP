@@ -12,9 +12,9 @@
             ContentTemplate="{DataTemplate views:LoginPage}"
             Route="Login" />
         <ShellContent
-            Title="Forecast"
-            ContentTemplate="{DataTemplate views:ForecastPage}"
-            Route="Forecast" />
+            Title="My Services"
+            ContentTemplate="{DataTemplate views:MyServicesPage}"
+            Route="MyServices" />
     </TabBar>
 
 </Shell>

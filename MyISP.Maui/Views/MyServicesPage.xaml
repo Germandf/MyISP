@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyISP.Maui.Views.MyServicesPage"
+             Title="My Services">
+    <VerticalStackLayout Padding="12" Spacing="10">
+        <Button Text="Refresh" Clicked="OnRefresh"/>
+
+        <Label Text="Internet Services" FontAttributes="Bold"/>
+        <CollectionView x:Name="InternetList">
+            <CollectionView.EmptyView>
+                <Label Text="No internet services"/>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <HorizontalStackLayout Padding="8" Spacing="8">
+                        <Label Text="{Binding Service.Name}" HorizontalOptions="StartAndExpand"/>
+                        <Label Text="{Binding Service.Mbps}"/>
+                        <Label Text="Mbps"/>
+                        <Label Text="{Binding Service.MonthlyPrice, StringFormat='${0:F2}'}"/>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Label Text="Mobile Services" FontAttributes="Bold" Margin="0,12,0,0"/>
+        <CollectionView x:Name="MobileList">
+            <CollectionView.EmptyView>
+                <Label Text="No mobile services"/>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <HorizontalStackLayout Padding="8" Spacing="8">
+                        <Label Text="{Binding Service.Name}" HorizontalOptions="StartAndExpand"/>
+                        <Label Text="{Binding Service.Gbs}"/>
+                        <Label Text="GB"/>
+                        <Label Text="{Binding Service.MonthlyPrice, StringFormat='${0:F2}'}"/>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Label x:Name="ErrorLabel" TextColor="Red" IsVisible="False"/>
+    </VerticalStackLayout>
+</ContentPage>

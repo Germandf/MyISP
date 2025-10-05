@@ -2,14 +2,14 @@ using MyISP.Maui.Services;
 
 namespace MyISP.Maui.Views;
 
-public partial class ForecastPage : ContentPage
+public partial class MyServicesPage : ContentPage
 {
-    private readonly WeatherService _weatherService;
+    private readonly UserServicesService _userServicesService;
 
-    public ForecastPage(WeatherService weatherService)
+    public MyServicesPage(UserServicesService userServicesService)
     {
         InitializeComponent();
-        _weatherService = weatherService;
+        _userServicesService = userServicesService;
     }
 
     protected override async void OnAppearing()
@@ -23,7 +23,7 @@ public partial class ForecastPage : ContentPage
         ErrorLabel.IsVisible = false;
         try
         {
-            var data = await _weatherService.GetForecastAsync();
+            var data = await _userServicesService.GetMyServicesAsync();
             if (data == null)
             {
                 ErrorLabel.Text = "Not authorized or failed to load";
@@ -31,7 +31,8 @@ public partial class ForecastPage : ContentPage
             }
             else
             {
-                ForecastList.ItemsSource = data;
+                InternetList.ItemsSource = data.Internet;
+                MobileList.ItemsSource = data.Mobile;
             }
         }
         catch (Exception ex)

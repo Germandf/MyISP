@@ -49,7 +49,7 @@ namespace MyISP.Maui
 
             // Services
             builder.Services.AddSingleton<AuthService>();
-            builder.Services.AddSingleton<WeatherService>();
+            builder.Services.AddSingleton<UserServicesService>();
 
 #if DEBUG
             builder.Logging.AddDebug();

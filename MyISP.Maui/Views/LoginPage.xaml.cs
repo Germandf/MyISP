@@ -33,7 +33,7 @@ public partial class LoginPage : ContentPage
                 ErrorLabel.IsVisible = true;
                 return;
             }
-            await Shell.Current.GoToAsync("//Forecast");
+            await Shell.Current.GoToAsync("//MyServices");
         }
         catch (Exception ex)
         {
