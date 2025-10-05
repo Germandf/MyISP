@@ -18,7 +18,6 @@ var app = builder.Build();
 
 app.MapOpenApi();
 app.MapScalarApiReference();
-app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();

@@ -21,7 +21,6 @@ var app = builder.Build();
 app.MapIdentityApi<IdentityUser>();
 app.MapOpenApi();
 app.MapScalarApiReference();
-app.UseHttpsRedirection();
 
 app.MapGet("/weatherforecast", () =>
 {

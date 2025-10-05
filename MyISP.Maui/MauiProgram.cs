@@ -3,6 +3,17 @@ using MyISP.Maui.Services;
 
 namespace MyISP.Maui
 {
+    public static class ApiEndpoints
+    {
+        static string DevHost =>
+            DeviceInfo.Platform == DevicePlatform.Android
+                ? "http://10.0.2.2"
+                : "http://localhost";
+        static string DevUrl(int port) => $"{DevHost}:{port}";
+        public static string IdentityBaseUrl => DevUrl(5253);
+        public static string BffBaseUrl => DevUrl(5088);
+    }
+
     public static class MauiProgram
     {
         public static MauiApp CreateMauiApp()
@@ -19,11 +30,11 @@ namespace MyISP.Maui
             // HttpClients
             builder.Services.AddHttpClient("Identity", client =>
             {
-                client.BaseAddress = new Uri("https://localhost:7076");
+                client.BaseAddress = new Uri(ApiEndpoints.IdentityBaseUrl);
             });
             builder.Services.AddHttpClient("Bff", client =>
             {
-                client.BaseAddress = new Uri("https://localhost:7162");
+                client.BaseAddress = new Uri(ApiEndpoints.BffBaseUrl);
             });
 
             // Services
