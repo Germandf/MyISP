@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyISP.Identity;
 using Scalar.AspNetCore;
@@ -14,6 +15,7 @@ builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
 builder.Services.AddDataProtection()
     .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(builder.Environment.ContentRootPath, "..", "keys")))
     .SetApplicationName("MyISP");
+builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationClaimsPrincipalFactory>();
 
 var app = builder.Build();
 

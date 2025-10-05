@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyISP.Bff;
 
@@ -6,9 +7,9 @@ public static class Endpoints
 {
     public static void MapEndpoints(this WebApplication app)
     {
-        app.MapGet("/my/services", async (ApplicationDbContext db, CancellationToken ct) =>
+        app.MapGet("/my/services", async (HttpContext httpContext, [FromServices] ApplicationDbContext db, CancellationToken ct) =>
         {
-            var customerId = Guid.Parse("11111111-1111-1111-1111-111111111111");
+            var customerId = Guid.Parse(httpContext.User.Claims.First(c => c.Type == "customerid").Value);
 
             var internet = await db.InternetServiceSubscriptions
                 .Where(s => s.CustomerId == customerId && s.Status == SubscriptionStatus.Active)
@@ -31,6 +32,8 @@ public static class Endpoints
                 .ToListAsync(ct);
 
             return Results.Ok(new { internet, mobile });
-        }).RequireAuthorization();
+        })
+        .WithName("GetMyServices")
+        .RequireAuthorization();
     }
 }
