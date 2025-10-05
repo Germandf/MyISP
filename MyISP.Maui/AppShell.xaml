@@ -12,9 +12,21 @@
             ContentTemplate="{DataTemplate views:LoginPage}"
             Route="Login" />
         <ShellContent
-            Title="My Services"
+            Title="Services"
             ContentTemplate="{DataTemplate views:MyServicesPage}"
             Route="MyServices" />
+        <ShellContent
+            Title="Invoices"
+            ContentTemplate="{DataTemplate views:InvoicesPage}"
+            Route="Invoices" />
+        <ShellContent
+            Title="Contact"
+            ContentTemplate="{DataTemplate views:ContactInfoPage}"
+            Route="ContactInfo" />
+        <ShellContent
+            Title="Tickets"
+            ContentTemplate="{DataTemplate views:TechnicalRequestsPage}"
+            Route="TechnicalRequests" />
     </TabBar>
 
 </Shell>

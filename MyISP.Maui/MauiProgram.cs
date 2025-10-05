@@ -50,6 +50,9 @@ namespace MyISP.Maui
             // Services
             builder.Services.AddSingleton<AuthService>();
             builder.Services.AddSingleton<UserServicesService>();
+            builder.Services.AddSingleton<InvoicesService>();
+            builder.Services.AddSingleton<ContactInfoService>();
+            builder.Services.AddSingleton<TechnicalRequestsService>();
 
 #if DEBUG
             builder.Logging.AddDebug();

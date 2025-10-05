@@ -2,52 +2,46 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:MyISP.Maui.Models"
-             x:Class="MyISP.Maui.Views.MyServicesPage"
-             Title="My Services">
+             x:Class="MyISP.Maui.Views.ContactInfoPage"
+             Title="My Contact Info">
     <VerticalStackLayout Padding="12" Spacing="10">
-        <Button Text="Refresh" Clicked="OnRefresh"/>
-
-        <Label Text="Internet Services" FontAttributes="Bold"/>
-        <CollectionView x:Name="InternetList">
+        <Label Text="Emails" FontAttributes="Bold"/>
+        <CollectionView x:Name="EmailsList">
             <CollectionView.EmptyView>
-                <Label Text="No internet services"/>
+                <Label Text="No emails"/>
             </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:InternetSubscriptionDto">
+                <DataTemplate x:DataType="models:EmailDto">
                     <Grid Padding="8" ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Text="{Binding Service.Name}" />
-                        <Label Grid.Column="1" Text="{Binding Service.Mbps}" />
-                        <Label Grid.Column="2" Text="Mbps" />
-                        <Label Grid.Column="3" Text="{Binding Service.MonthlyPrice, StringFormat='${0:F2}'}" />
+                        <Label Grid.Column="0" Text="{Binding Address}" />
+                        <Label Grid.Column="1" Text="{Binding Label}" />
+                        <Label Grid.Column="2" Text="Verified" IsVisible="{Binding IsVerified}" TextColor="Green" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Label Text="Mobile Services" FontAttributes="Bold" Margin="0,12,0,0"/>
-        <CollectionView x:Name="MobileList">
+        <Label Text="Phones" FontAttributes="Bold" Margin="0,12,0,0"/>
+        <CollectionView x:Name="PhonesList">
             <CollectionView.EmptyView>
-                <Label Text="No mobile services"/>
+                <Label Text="No phones"/>
             </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:MobileSubscriptionDto">
+                <DataTemplate x:DataType="models:PhoneDto">
                     <Grid Padding="8" ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Text="{Binding Service.Name}" />
-                        <Label Grid.Column="1" Text="{Binding Service.Gbs}" />
-                        <Label Grid.Column="2" Text="GB" />
-                        <Label Grid.Column="3" Text="{Binding Service.MonthlyPrice, StringFormat='${0:F2}'}" />
+                        <Label Grid.Column="0" Text="({Binding AreaCode}) {Binding LocalNumber}" />
+                        <Label Grid.Column="1" Text="{Binding Label}" />
+                        <Label Grid.Column="2" Text="Verified" IsVisible="{Binding IsVerified}" TextColor="Green" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

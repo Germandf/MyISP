@@ -16,14 +16,20 @@ public class MobileServiceDto
     public decimal MonthlyPrice { get; set; }
 }
 
-public class ServiceSubscriptionDto<TService>
+public class InternetSubscriptionDto
 {
     public Guid Id { get; set; }
-    public TService Service { get; set; } = default!;
+    public InternetServiceDto Service { get; set; } = default!;
+}
+
+public class MobileSubscriptionDto
+{
+    public Guid Id { get; set; }
+    public MobileServiceDto Service { get; set; } = default!;
 }
 
 public class MyServicesResponse
 {
-    public List<ServiceSubscriptionDto<InternetServiceDto>> Internet { get; set; } = [];
-    public List<ServiceSubscriptionDto<MobileServiceDto>> Mobile { get; set; } = [];
+    public List<InternetSubscriptionDto> Internet { get; set; } = [];
+    public List<MobileSubscriptionDto> Mobile { get; set; } = [];
 }

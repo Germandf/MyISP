@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MyISP.Maui.Models"
+             x:Class="MyISP.Maui.Views.TechnicalRequestsPage"
+             Title="Technical Requests">
+    <VerticalStackLayout Padding="12" Spacing="10">
+        <Label Text="Active" FontAttributes="Bold"/>
+        <CollectionView x:Name="ActiveList">
+            <CollectionView.EmptyView>
+                <Label Text="No active tickets"/>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:TechnicalRequestDto">
+                    <VerticalStackLayout Padding="8" Spacing="2">
+                        <Label Text="{Binding TicketNumber}" FontAttributes="Bold"/>
+                        <Label Text="{Binding Subject}"/>
+                        <Label Text="{Binding Status}"/>
+                        <Label Text="{Binding Priority}"/>
+                        <Label Text="{Binding CreatedAt, StringFormat='{0:yyyy-MM-dd}'}"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Label Text="Completed" FontAttributes="Bold" Margin="0,12,0,0"/>
+        <CollectionView x:Name="CompletedList">
+            <CollectionView.EmptyView>
+                <Label Text="No completed tickets"/>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:TechnicalRequestDto">
+                    <VerticalStackLayout Padding="8" Spacing="2">
+                        <Label Text="{Binding TicketNumber}" FontAttributes="Bold"/>
+                        <Label Text="{Binding Subject}"/>
+                        <Label Text="{Binding Status}"/>
+                        <Label Text="{Binding Priority}"/>
+                        <Label Text="{Binding CreatedAt, StringFormat='{0:yyyy-MM-dd}'}"/>
+                        <Label Text="{Binding ResolvedAt, StringFormat='Resolved: {0:yyyy-MM-dd}'}"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Label x:Name="ErrorLabel" TextColor="Red" IsVisible="False"/>
+    </VerticalStackLayout>
+</ContentPage>
