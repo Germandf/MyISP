@@ -5,6 +5,7 @@ namespace MyISP.Maui.Views;
 public partial class MyServicesPage : ContentPage
 {
     private readonly UserServicesService _userServicesService;
+    private CancellationTokenSource? _cts;
 
     public MyServicesPage(UserServicesService userServicesService)
     {
@@ -18,16 +19,31 @@ public partial class MyServicesPage : ContentPage
         await LoadAsync();
     }
 
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        _cts?.Cancel();
+        _cts?.Dispose();
+        _cts = null;
+    }
+
     private async Task LoadAsync()
     {
         ErrorLabel.IsVisible = false;
+        _cts?.Cancel();
+        _cts?.Dispose();
+        _cts = new CancellationTokenSource();
+
         try
         {
-            var data = await _userServicesService.GetMyServicesAsync();
+            IsBusy = true;
+            var data = await _userServicesService.GetMyServicesAsync(_cts.Token);
             if (data == null)
             {
                 ErrorLabel.Text = "Not authorized or failed to load";
                 ErrorLabel.IsVisible = true;
+                InternetList.ItemsSource = null;
+                MobileList.ItemsSource = null;
             }
             else
             {
@@ -35,10 +51,19 @@ public partial class MyServicesPage : ContentPage
                 MobileList.ItemsSource = data.Mobile;
             }
         }
+        catch (OperationCanceledException)
+        {
+            // ignore cancel
+        }
         catch (Exception ex)
         {
             ErrorLabel.Text = ex.Message;
             ErrorLabel.IsVisible = true;
+        }
+        finally
+        {
+            IsBusy = false;
+            PullToRefresh.IsRefreshing = false;
         }
     }
 

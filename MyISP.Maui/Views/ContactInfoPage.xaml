@@ -2,51 +2,61 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:MyISP.Maui.Models"
+             xmlns:views="clr-namespace:MyISP.Maui.Views"
              x:Class="MyISP.Maui.Views.ContactInfoPage"
+             x:Name="Root"
              Title="My Contact Info">
-    <VerticalStackLayout Padding="12" Spacing="10">
-        <Label Text="Emails" FontAttributes="Bold"/>
-        <CollectionView x:Name="EmailsList">
-            <CollectionView.EmptyView>
-                <Label Text="No emails"/>
-            </CollectionView.EmptyView>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:EmailDto">
-                    <Grid Padding="8" ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Text="{Binding Address}" />
-                        <Label Grid.Column="1" Text="{Binding Label}" />
-                        <Label Grid.Column="2" Text="Verified" IsVisible="{Binding IsVerified}" TextColor="Green" />
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+    <Grid>
+        <RefreshView x:Name="PullToRefresh" Refreshing="OnRefresh">
+            <VerticalStackLayout Padding="12" Spacing="10">
+                <Label Text="Emails" FontAttributes="Bold"/>
+                <CollectionView x:Name="EmailsList">
+                    <CollectionView.EmptyView>
+                        <Label Text="No emails"/>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:EmailDto">
+                            <Grid Padding="8" ColumnSpacing="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding Address}" />
+                                <Label Grid.Column="1" Text="{Binding Label}" />
+                                <Label Grid.Column="2" Text="Verified" IsVisible="{Binding IsVerified}" TextColor="Green" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
-        <Label Text="Phones" FontAttributes="Bold" Margin="0,12,0,0"/>
-        <CollectionView x:Name="PhonesList">
-            <CollectionView.EmptyView>
-                <Label Text="No phones"/>
-            </CollectionView.EmptyView>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:PhoneDto">
-                    <Grid Padding="8" ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Text="({Binding AreaCode}) {Binding LocalNumber}" />
-                        <Label Grid.Column="1" Text="{Binding Label}" />
-                        <Label Grid.Column="2" Text="Verified" IsVisible="{Binding IsVerified}" TextColor="Green" />
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                <Label Text="Phones" FontAttributes="Bold" Margin="0,12,0,0"/>
+                <CollectionView x:Name="PhonesList">
+                    <CollectionView.EmptyView>
+                        <Label Text="No phones"/>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:PhoneDto">
+                            <Grid Padding="8" ColumnSpacing="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="({Binding AreaCode}) {Binding LocalNumber}" />
+                                <Label Grid.Column="1" Text="{Binding Label}" />
+                                <Label Grid.Column="2" Text="Verified" IsVisible="{Binding IsVerified}" TextColor="Green" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
-        <Label x:Name="ErrorLabel" TextColor="Red" IsVisible="False"/>
-    </VerticalStackLayout>
+                <Label x:Name="ErrorLabel" TextColor="Red" IsVisible="False"/>
+            </VerticalStackLayout>
+        </RefreshView>
+        
+        <Grid BindingContext="{x:Reference Root}" x:DataType="views:ContactInfoPage" IsVisible="{Binding IsBusy}" BackgroundColor="#80000000">
+            <ActivityIndicator IsRunning="True" IsVisible="True" VerticalOptions="Center" HorizontalOptions="Center"/>
+        </Grid>
+    </Grid>
 </ContentPage>
