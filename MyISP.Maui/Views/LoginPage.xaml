@@ -8,6 +8,7 @@
         <Entry x:Name="UsernameEntry" Placeholder="Email or username" Keyboard="Email"/>
         <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True"/>
         <Button Text="Login" Clicked="OnLoginClicked"/>
+        <Button Text="Create account" Clicked="OnRegisterClicked"/>
         <Label x:Name="ErrorLabel" TextColor="Red" IsVisible="False"/>
     </VerticalStackLayout>
 </ContentPage>

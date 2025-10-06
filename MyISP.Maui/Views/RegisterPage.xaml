@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyISP.Maui.Views.RegisterPage"
+             Title="Register">
+    <VerticalStackLayout Padding="24" Spacing="12">
+        <Label Text="Create account" Style="{StaticResource Headline}" />
+        <Entry x:Name="EmailEntry" Placeholder="Email" Keyboard="Email"/>
+        <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True"/>
+        <Entry x:Name="ConfirmEntry" Placeholder="Confirm password" IsPassword="True"/>
+        <Button Text="Register" Clicked="OnRegisterClicked"/>
+        <Label x:Name="ErrorLabel" TextColor="Red" IsVisible="False"/>
+        <Button Text="Have an account? Sign in" SemanticProperties.Hint="Go back to Login"
+                Clicked="OnGoToLoginClicked" />
+    </VerticalStackLayout>
+</ContentPage>

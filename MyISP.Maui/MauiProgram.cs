@@ -38,6 +38,7 @@ namespace MyISP.Maui
                 });
 
             // HttpClients
+            builder.Services.AddTransient<AuthHeaderHandler>();
             builder.Services.AddHttpClient("Identity", client =>
             {
                 client.BaseAddress = new Uri(ApiEndpoints.IdentityBaseUrl);
@@ -45,7 +46,8 @@ namespace MyISP.Maui
             builder.Services.AddHttpClient("Bff", client =>
             {
                 client.BaseAddress = new Uri(ApiEndpoints.BffBaseUrl);
-            });
+            })
+            .AddHttpMessageHandler<AuthHeaderHandler>();
 
             // Services
             builder.Services.AddSingleton<AuthService>();

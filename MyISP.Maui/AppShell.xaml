@@ -6,11 +6,21 @@
     xmlns:views="clr-namespace:MyISP.Maui.Views"
     Title="MyISP.Maui">
 
-    <TabBar>
+    <!-- Auth area as its own ShellItem (TabBar) so absolute routing //Login works -->
+    <TabBar Route="Auth">
         <ShellContent
-            Title="Login"
+            Route="Login"
             ContentTemplate="{DataTemplate views:LoginPage}"
-            Route="Login" />
+            Shell.TabBarIsVisible="False"
+            Shell.NavBarIsVisible="False" />
+        <ShellContent
+            Route="Register"
+            ContentTemplate="{DataTemplate views:RegisterPage}"
+            Shell.TabBarIsVisible="False"
+            Shell.NavBarIsVisible="False" />
+    </TabBar>
+
+    <TabBar>
         <ShellContent
             Title="Services"
             ContentTemplate="{DataTemplate views:MyServicesPage}"
@@ -27,6 +37,10 @@
             Title="Tickets"
             ContentTemplate="{DataTemplate views:TechnicalRequestsPage}"
             Route="TechnicalRequests" />
+        <ShellContent
+            Title="More"
+            ContentTemplate="{DataTemplate views:MoreOptionsPage}"
+            Route="MoreOptions" />
     </TabBar>
 
 </Shell>

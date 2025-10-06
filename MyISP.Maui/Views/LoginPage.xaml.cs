@@ -12,6 +12,16 @@ public partial class LoginPage : ContentPage
         _authService = authService;
     }
 
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        var token = await _authService.GetTokenAsync();
+        if (!string.IsNullOrWhiteSpace(token))
+        {
+            await Shell.Current.GoToAsync("//MyServices");
+        }
+    }
+
     private async void OnLoginClicked(object? sender, EventArgs e)
     {
         ErrorLabel.IsVisible = false;
@@ -40,5 +50,10 @@ public partial class LoginPage : ContentPage
             ErrorLabel.Text = ex.Message;
             ErrorLabel.IsVisible = true;
         }
+    }
+
+    private async void OnRegisterClicked(object? sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("///Register");
     }
 }
